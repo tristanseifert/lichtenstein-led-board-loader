@@ -470,4 +470,19 @@ SECTIONS
     .debug_funcnames 0 : { *(.debug_funcnames) }
     .debug_typenames 0 : { *(.debug_typenames) }
     .debug_varnames  0 : { *(.debug_varnames) }    
+    
+    /* defines the version section at flash address 0x7FF0 */
+    .version (NOLOAD) : ALIGN(4) {
+    	__version_start = .;
+    	*(.version*)
+    	__version_end = .;
+    } > FLASH_VERS
+    /* section for loader info */
+    .loaderinfo : ALIGN(4) {
+    	FILL(0x00)
+    
+    	__loaderinfo_start = .;
+    	KEEP(*(.loaderinfo*))
+    	__loaderinfo_end = .;
+    } > FLASH_LOADER_INFO =0x00
 }
