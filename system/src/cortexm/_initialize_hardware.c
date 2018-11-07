@@ -89,19 +89,4 @@ __initialize_hardware_early(void)
 #endif
 }
 
-// This is the second hardware initialisation routine, it can be
-// redefined in the application for more complex cases that
-// require custom inits (before constructors), otherwise these can
-// be done in main().
-//
-// Called from _start(), right after data & bss init, before
-// constructors.
-
-void
-__attribute__((weak))
-__initialize_hardware(void)
-{
-
-}
-
 // ----------------------------------------------------------------------------

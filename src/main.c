@@ -1,5 +1,7 @@
 #include "stm32f0xx.h"
 
+#include "drivers/spi.h"
+
 #include <stdint.h>
 
 /**
@@ -9,10 +11,14 @@
  * - Upgrades the firmware currently loaded into on-board flash.
  * - Jumps to the firmware in flash.
  */
-int main(int argc __attribute__((unused)),
-		char* argv[] __attribute__((unused))) {
-	// disable interrupts
-	__disable_irq();
+__attribute__((noreturn)) void main(void) {
+	// initialize the SPI driver
+	spi_init();
+
+	// disable all peripherals
+	RCC->AHBENR = 0;
+	RCC->APB2ENR = 0;
+	RCC->APB1ENR = 0;
 
 	// jump to firmware in flash
 	volatile uint32_t *appVectors = (uint32_t *) 0x08001000;
@@ -26,6 +32,6 @@ int main(int argc __attribute__((unused)),
 		: : "r" (initialSp), "r" (resetVector)
     );
 
-    // shouldn't get here
-    return 0;
+    // we literally cannot get back here
+    while(1) {}
 }
