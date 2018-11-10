@@ -57,6 +57,9 @@ typedef struct {
 		/// How many startup successes were there?
 		uint8_t startSuccesses;
 	} fwInfo[8];
+
+	// CRC32 of the structure
+	uint32_t crc32;
 } __attribute__((__packed__)) bootloader_info_t;
 
 /**
