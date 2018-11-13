@@ -16,7 +16,7 @@
 /**
  * Bootloader information block, located towards the end of flash.
  */
-__attribute__ ((section(".loaderinfo"),used)) static const bootloader_interface_t kLoaderInfo = {
+__attribute__ ((section(".loaderinfo"),used)) const bootloader_interface_t kLoaderInfo = {
 	.version = 0x0010,
 
 	.mark_fw_good = loader_mark_fw_good,
